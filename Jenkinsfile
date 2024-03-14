@@ -32,10 +32,12 @@ pipeline {
                 script {
                     withCredentials([usernamePassword(credentialsId: 'Github_server', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) { 
                         sh '''
-                        ls /var/lib/jenkins/workspace/$JOB_NAME/dev  # Verify if the directory exists
-                        cat /var/lib/jenkins/workspace/$JOB_NAME/dev/deployment.yaml  # Check if the file exists
-                        sed -i "s/5/15/g" /var/lib/jenkins/workspace/$JOB_NAME/dev/deployment.yaml
-                        cat /var/lib/jenkins/workspace/$JOB_NAME/dev/deployment.yaml
+                        ls -la /var/lib/jenkins/workspace  # Check the contents of the workspace directory
+                        ls -la /var/lib/jenkins/workspace/hiring-app-image-build-push  # Check the contents of the specific directory
+                        ls -la /var/lib/jenkins/workspace/hiring-app-image-build-push/dev  # Check the contents of the dev directory
+                        cat /var/lib/jenkins/workspace/hiring-app-image-build-push/dev/deployment.yaml  # Check the deployment.yaml file
+                        sed -i "s/5/15/g" /var/lib/jenkins/workspace/hiring-app-image-build-push/dev/deployment.yaml
+                        cat /var/lib/jenkins/workspace/hiring-app-image-build-push/dev/deployment.yaml
                         git add .
                         git commit -m 'Updated the deploy yaml | Jenkins Pipeline'
                         git remote -v
