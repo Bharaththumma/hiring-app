@@ -30,15 +30,16 @@ pipeline {
             steps {
                 script{
                    withCredentials([usernamePassword(credentialsId: 'Github_server', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) { 
-                        sh '''
-                        cat '/var/lib/jenkins/workspace/hiring-app-image-build-push to registry/dev/deployment.yaml'
-                        sed -i "s/5/${BUILD_NUMBER}/g" /var/lib/jenkins/workspace/hiring-app-image-build-push to registry/dev/deployment.yaml'
-                        cat '/var/lib/jenkins/workspace/hiring-app-image-build-push to registry/dev/deployment.yaml'
-                        git add .
-                        git commit -m 'Updated the deploy yaml | Jenkins Pipeline'
-                        git remote -v
-                        git push https://$GIT_USERNAME:$GIT_PASSWORD@github.com/betawins/Hiring-app-argocd.git main
-                        '''                        
+sh '''
+cat /var/lib/jenkins/workspace/$JOB_NAME/dev/deployment.yaml
+sed -i "s/5/15/g" /var/lib/jenkins/workspace/$JOB_NAME/dev/deployment.yaml
+cat /var/lib/jenkins/workspace/$JOB_NAME/dev/deployment.yaml
+git add .
+git commit -m 'Updated the deploy yaml | Jenkins Pipeline'
+git remote -v
+git push https://$GIT_USERNAME:$GIT_PASSWORD@github.com/betawins/Hiring-app-argocd.git main
+'''
+                       
                       }
                   }
             }   
