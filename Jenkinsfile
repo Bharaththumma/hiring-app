@@ -31,7 +31,7 @@ pipeline {
                 script{
                    withCredentials([usernamePassword(credentialsId: 'Github_server', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) { 
 sh '''
-cat /var/lib/jenkins/workspace/$JOB_NAME/dev/deployment.yaml
+cat /var/lib/jenkins/workspace/hiring-app-image-build-push/dev/deployment.yaml
 sed -i "s/5/15/g" /var/lib/jenkins/workspace/$JOB_NAME/dev/deployment.yaml
 cat /var/lib/jenkins/workspace/$JOB_NAME/dev/deployment.yaml
 git add .
