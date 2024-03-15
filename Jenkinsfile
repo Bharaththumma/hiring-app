@@ -38,7 +38,7 @@ pipeline {
                         git add .
                         git commit -m 'Updated the deploy yaml | Jenkins Pipeline'
                         git remote -v
-                        git push https://$GIT_USERNAME:$GIT_PASSWORD@github.com/Bharaththumma/Hiring-app-argocd.git main
+                        git push https://bharaththumma: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@github.com/Bharaththumma/Hiring-app-argocd.git
                         '''                        
                       }
                   }
