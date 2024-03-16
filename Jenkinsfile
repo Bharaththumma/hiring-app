@@ -27,22 +27,25 @@ pipeline {
             }
         }
 
-        stage('Update K8S manifest & push to Repo'){
+        stage('Update K8S manifest & push to Repo') {
             steps {
-                script{
-                   withCredentials([usernamePassword(credentialsId: 'Github_server', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) { 
+                script {
+                    withCredentials([string(credentialsId: 'github', variable: 'GIT_TOKEN')]) { 
                         sh '''
+                        git config --global user.email "bharatht95@gmail.com"
+                        git config --global user.name "Bharaththumma"
                         cat /var/lib/jenkins/workspace/$JOB_NAME/dev/deployment.yaml
-                        sed -i "s/35/${BUILD_NUMBER}/g" /var/lib/jenkins/workspace/$JOB_NAME/dev/deployment.yaml
+                        sed -i "s/20/${BUILD_NUMBER}/g" /var/lib/jenkins/workspace/$JOB_NAME/dev/deployment.yaml
                         cat /var/lib/jenkins/workspace/$JOB_NAME/dev/deployment.yaml
                         git add .
                         git commit -m 'Updated the deploy yaml | Jenkins Pipeline'
                         git remote -v
-                        git push https://Bharaththumma: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@github.com/Bharaththumma/Hiring-app-argocd.git
-                        '''                        
-                      }
-                  }
-            }   
-        }
+                        git push https://$GIT_TOKEN@github.com/Bharaththumma/Hiring-app-argocd1.git main
+                        '''
+                    }
+                }
             }
-} 
+        }
+    }
+}
+
