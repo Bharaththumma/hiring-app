@@ -23,13 +23,13 @@ pipeline {
         }
         stage('Checkout K8S manifest SCM'){
             steps {
-              git branch: 'main', url: 'https://github.com/Bharaththumma/Hiring-app-argocd1.git'
+              git branch: 'main', url: 'https://github.com/Bharaththumma/Hiring-app-argocd.git'
             }
         } 
         stage('Update K8S manifest & push to Repo'){
             steps {
                 script{
-                    withCredentials([string(credentialsId: 'git_tocken', variable: 'GIT_TOKEN')]) { 
+                    withCredentials([string(credentialsId: 'Github_server', variable: 'GIT_TOKEN')]) { 
                         sh '''
                         git config --global user.email bharatht95@outlook.com
                         git config --global user.name Bharaththumma
